@@ -94,3 +94,4 @@ Due to time constraints I skipped a few steps which otherwise would've been impl
 - API documentation with Swagger / Apollo
 - Use css libraries like Styled components or tailwind
 - Refactor
+- On edit you can still change the date to an earlier date
