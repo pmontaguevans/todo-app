@@ -81,6 +81,7 @@ The backend service exposes the following endpoints for interacting with todos a
 Due to time constraints I skipped a few steps which otherwise would've been implemented in a larger scale, real life application.
 
 - Better error handling in both frontend and backend (E.g input validation which I probably would've used Zod for schema and and input validation, more try / catch blocks)
+- User feedback
 - Implement state handling using state management apis like the built in context api, redux or Zustand if application was scoped to be a fully featured todo app. If routing was a key feature I'd make a NextJS app instead for its out-of-the-box route handling
 - Filtering for completed tasks
 - Delete / clear all tasks

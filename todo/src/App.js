@@ -97,6 +97,7 @@ function App() {
     todo.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
+  // 
   const totalPages = Math.ceil(filteredTodos.length / todosPerPage);
   const currentTodos = filteredTodos.slice(
     (currentPage - 1) * todosPerPage,
