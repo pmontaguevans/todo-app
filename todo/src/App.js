@@ -4,7 +4,7 @@ import TodoList from "./components/TodoList";
 import Pagination from "./components/Pagination";
 import Search from "./components/Search";
 import "./App.css";
-import logo from './checkboxes.png'
+import logo from "./checkboxes.png";
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -43,7 +43,6 @@ function App() {
       const newTodo = await response.json();
 
       setTodos((prevTodos) => [newTodo, ...prevTodos]);
-
       setTodoItem({ title: "", description: "", dueDate: "" });
     } catch (error) {
       console.error("Error adding todo:", error);
@@ -97,7 +96,6 @@ function App() {
     todo.title.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // 
   const totalPages = Math.ceil(filteredTodos.length / todosPerPage);
   const currentTodos = filteredTodos.slice(
     (currentPage - 1) * todosPerPage,

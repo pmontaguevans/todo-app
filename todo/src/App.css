@@ -170,3 +170,11 @@ body {
 .pagination-info {
   margin: 0 0.625rem;
 }
+
+.error-message {
+  color: #ff4d5e;
+  font-size: 0.875em;
+  font-weight: bold;
+  margin-top: 0.25em;
+  margin-bottom: 0.5em;
+}
