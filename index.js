@@ -21,12 +21,12 @@ app.put("/api/todos/:id", updateTodo);
 app.delete("/api/todos/:id", deleteTodoById);
 app.delete("/api/todos", deleteAll);
 
-app.use(express.static(path.join(__dirname, "/todo/build")));
+app.use(express.static(path.join(__dirname, "todo/build")));
 
 // The catchall handler: for any request that doesn't match one above,
 // send back the React app.
 app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "/todo/build", "index.html"));
+  res.sendFile(path.join(__dirname, "todo/build", "index.html"));
 });
 app.listen(PORT, () => {
   console.log(`Server listening on ${PORT}`);
