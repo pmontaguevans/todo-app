@@ -82,7 +82,7 @@ The backend service exposes the following endpoints for interacting with todos a
 Due to time constraints I skipped a few steps which otherwise would've been implemented in a larger scale, real life application.
 
 - Better error handling in both frontend and backend (E.g input validation which I probably would've used Zod schemas, more try / catch blocks)
-- User feedback where needed. Right now there's only some form / input validation
+- Imprve user feedback. Right now there's only some form / input validation
 - Implement state handling using state management apis like the built in context api, redux or Zustand if application was scoped to be a fully featured todo app. If routing was a key feature I'd make a NextJS app instead for its out-of-the-box route handling
 - Filtering for completed tasks
 - Delete / clear all tasks
@@ -94,4 +94,4 @@ Due to time constraints I skipped a few steps which otherwise would've been impl
 - API documentation with Swagger / Apollo
 - Use css libraries like Styled components or tailwind
 - Refactor
-- On edit you can still change the date to an earlier date after creation and you can still create an item if the date field isn't touched
+- On edit you can still change the date to an earlier date after creation

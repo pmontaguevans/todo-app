@@ -17,17 +17,37 @@ function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [todosPerPage] = useState(5);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("/api/todos")
-      .then((res) => res.json())
-      .then((todos) => setTodos(todos))
-      .catch((error) => console.error("Error fetching todos", error));
+    fetchTodos();
   }, []);
+
+  const fetchTodos = async () => {
+    setLoading(true);
+    try {
+      const response = await fetch("/api/todos");
+      if (!response.ok) {
+        throw new Error("Failed to fetch todos");
+      }
+      const todos = await response.json();
+      setTodos(todos);
+    } catch (error) {
+      setError(error.message);
+      console.error("Error fetching todos", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   async function onAddTodo(e) {
     e.preventDefault();
-    if (!todoItem.title) return;
+    if (!todoItem.title || !todoItem.description || !todoItem.dueDate) {
+      setError("All fields are required.");
+      return;
+    }
+    setError(null);
 
     try {
       const response = await fetch("/api/todos", {
@@ -45,6 +65,7 @@ function App() {
       setTodos((prevTodos) => [newTodo, ...prevTodos]);
       setTodoItem({ title: "", description: "", dueDate: "" });
     } catch (error) {
+      setError(error.message);
       console.error("Error adding todo:", error);
     }
   }
@@ -69,19 +90,30 @@ function App() {
       );
       setEditTodo(null);
     } catch (error) {
+      setError(error.message);
       console.error("Error updating todo", error);
     }
   }
 
-  function onDeleteTodo(id) {
-    fetch(`/api/todos/${id}`, {
-      method: "DELETE",
-    })
-      .then((res) => res.json())
-      .then(() => {
-        setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
-      })
-      .catch((error) => console.error("Error deleting todo", error));
+  async function onDeleteTodo(id) {
+    const previousTodos = [...todos];
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id));
+
+    try {
+      const response = await fetch(`/api/todos/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to delete todo: ${response.statusText}`);
+      }
+    } catch (error) {
+      setError(error.message);
+      console.error("Error deleting todo", error);
+
+      setTodos(previousTodos);
+      fetchTodos();
+    }
   }
 
   function toggleTodoCompletion(id) {
@@ -103,35 +135,39 @@ function App() {
   );
 
   return (
-    <div className="app-container">
-      <header className="header">
-        <h1 className="app-title">Todo List</h1>
-        <img className="app-logo" src={logo} alt="logo" />
-        <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-      </header>
-
-      <TodoForm
-        todoItem={todoItem}
-        setTodoItem={setTodoItem}
-        onAddTodo={onAddTodo}
-      />
-
-      <TodoList
-        todos={currentTodos}
-        editTodo={editTodo}
-        setEditTodo={setEditTodo}
-        toggleTodoCompletion={toggleTodoCompletion}
-        onUpdateTodo={onUpdateTodo}
-        onCancelEdit={() => setEditTodo(null)}
-        onDeleteTodo={onDeleteTodo}
-      />
-
-      <Pagination
-        currentPage={currentPage}
-        totalPages={totalPages}
-        setCurrentPage={setCurrentPage}
-      />
-    </div>
+    <>
+      {loading ? (
+        <p>Loading...</p>
+      ) : (
+        <div className="app-container">
+          <header className="header">
+            <h1 className="app-title">Todo List</h1>
+            <img className="app-logo" src={logo} alt="logo" />
+            <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          </header>
+          <TodoForm
+            todoItem={todoItem}
+            setTodoItem={setTodoItem}
+            onAddTodo={onAddTodo}
+          />
+          {error && <p className="error-message">{error}</p>}{" "}
+          <TodoList
+            todos={currentTodos}
+            editTodo={editTodo}
+            setEditTodo={setEditTodo}
+            toggleTodoCompletion={toggleTodoCompletion}
+            onUpdateTodo={onUpdateTodo}
+            onCancelEdit={() => setEditTodo(null)}
+            onDeleteTodo={onDeleteTodo}
+          />
+          <Pagination
+            currentPage={currentPage}
+            totalPages={totalPages}
+            setCurrentPage={setCurrentPage}
+          />
+        </div>
+      )}
+    </>
   );
 }
 
