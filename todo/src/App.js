@@ -4,6 +4,7 @@ import TodoList from "./components/TodoList";
 import Pagination from "./components/Pagination";
 import Search from "./components/Search";
 import "./App.css";
+import logo from './checkboxes.png'
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -106,6 +107,7 @@ function App() {
     <div className="app-container">
       <header className="header">
         <h1 className="app-title">Todo List</h1>
+        <img className="app-logo" src={logo} alt="logo" />
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       </header>
 

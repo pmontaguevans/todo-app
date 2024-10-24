@@ -3,6 +3,8 @@ body {
   background-color: #e9ecef;
   margin: 0;
   padding: 1.25rem;
+  width: 100vw;
+  height: 100vh;
 }
 
 .app-container {
@@ -12,6 +14,10 @@ body {
   background: white;
   border-radius: 0.5rem;
   box-shadow: 0 0.25rem 1.25rem rgba(0, 0, 0, 0.1);
+}
+
+.app-logo {
+  height: auto;
 }
 
 .header {

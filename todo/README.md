@@ -1,70 +1,94 @@
-# Getting Started with Create React App
+# A simple todo app
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+This application is a simple Todo app that allow users to create, read, update, and delete tasks. It consists of a small backend service built with node + express and a frontend application built with React.
 
-In the project directory, you can run:
+### TL;DR - How to run the app
 
-### `npm start`
+### Prerequisites (local setup)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Node.js (v20 or later)
+- npm
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+1. Clone the repository
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `git clone https://github.com/yourusername/todo-app.git`
 
-### `npm run build`
+- `cd todo-app`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. Install dependencies
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `cd backend && npm install`
+- `cd todo && npm install`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. Run the backend service
 
-### `npm run eject`
+- `npm start`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. Run the frontend app
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- `cd ../todo && npm start`
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+5. Access the app
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- `open the browser and navigate to http://`
 
-## Learn More
+### Deploy through Vercel
+Go to 
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## App structure
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The application is divided into two main folders:
 
-### Code Splitting
+- Backend: contains the node service that provides a RESTful API for managing todos.
+- Frontend: contains the React application for the UI.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## REST API
 
-### Analyzing the Bundle Size
+The backend service exposes the following endpoints for interacting with todos and uses the fs library as a file-based db to persist todos:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- GET `/api/todos`: Retrieve all todos.
+- POST `/api/todos`: Create a new todo.
+- PUT `/api/todos/:id`: Update an existing todo by ID.
+- DELETE `/api/todos/:id`: Delete a todo by ID.
 
-### Making a Progressive Web App
+## Sample Todo data
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+`  { id": 3,
+    "title": "Clean the house",
+    "description": "Vacuum",
+    "dueDate": "2024-10-25",
+    "isCompleted": true }`
 
-### Advanced Configuration
+## Frontend
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### The following can be expected:
 
-### Deployment
+- Add new todos
+- Edit existing todos
+- Delete todos
+- Search through the list of todos
+- Pagination
+- Mark them as completed
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+# Getting started
 
-### `npm run build` fails to minify
+#### Goal and leftovers
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Due to time constraints I skipped a few steps which otherwise would've been implemented in a larger scale, real life application.
+
+- Better error handling in both frontend and backend (E.g input validation which I probably would've used Zod for schema and and input validation, more try / catch blocks)
+- Implement state handling using state management apis like the built in context api, redux or Zustand if application was scoped to be a fully featured todo app. If routing was a key feature I'd make a NextJS app instead for its out-of-the-box route handling
+- Filtering for completed tasks
+- Delete / clear all tasks
+- The app didn't really follow my initial design, but ended up more smooth and clean than the initial design
+- Typescript
+- Unit tests
+- Comments
+- Use Terraform for infrastructure through GCP
+- API documentation with Swagger / Apollo
+- Use css libraries like Styled components or tailwind
+- Refactor
