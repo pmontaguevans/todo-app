@@ -36,8 +36,8 @@ This application is a simple Todo app that allow users to create, read, update, 
 
 - `open the browser and navigate to http://`
 
-### Deploy through Vercel
-Go to 
+### Deployed through Heroku
+Go to [Todo app](https://todo-app-for-mindoktor-23c64976f161.herokuapp.com/) and have fun!
 
 ## App structure
 
